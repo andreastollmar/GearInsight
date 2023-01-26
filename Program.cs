@@ -15,10 +15,8 @@ namespace testWoW
         public static string clientSecret = "XDO1WbK2BJ36OfLyo90nYVnUyGj5yHNd";
         static async Task Main(string[] args)
         {
-
-                       
+            
             var warcraftClient = new WarcraftClient(clientId, clientSecret, Region.Europe, Locale.en_GB);
-
             string realm = Helpers.GetInputFromUser("Enter Realm: ");
             string character = Helpers.GetInputFromUser("Enter character Name: ");
 
@@ -53,6 +51,12 @@ namespace testWoW
                 }
 
             }
+
+            //Metoder Jesper
+
+
+            //Metoder Andreas
+
 
         }
         
