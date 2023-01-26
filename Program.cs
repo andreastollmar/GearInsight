@@ -22,26 +22,36 @@ namespace testWoW
             string realm = Helpers.GetInputFromUser("Enter Realm: ");
             string character = Helpers.GetInputFromUser("Enter character Name: ");
 
-            RequestResult<CharacterProfileSummary> result = await warcraftClient.GetCharacterProfileSummaryAsync(realm, character, "profile-eu");
-            RequestResult<CharacterEquipmentSummary> armor = await warcraftClient.GetCharacterEquipmentSummaryAsync(realm, character, "profile-eu");
-
-            if(result.Success)
+            //RequestResult<CharacterProfileSummary> result = await warcraftClient.GetCharacterProfileSummaryAsync(realm, character, "profile-eu");
+            //RequestResult<CharacterEquipmentSummary> armor = await warcraftClient.GetCharacterEquipmentSummaryAsync(realm, character, "profile-eu");
+            RequestResult<ItemMedia> media = await warcraftClient.GetItemMediaAsync(200337, "static-eu");
+            //if(result.Success)
+            //{
+            //    CharacterProfileSummary profile = result.Value;
+            //    Console.WriteLine($"Level for {profile.Name}: {profile.Level} : {profile.Equipment}");
+            //}
+            //double avgIlvl = 0;
+            //if(armor.Success)
+            //{
+            //    CharacterEquipmentSummary a = armor.Value;
+            //    Console.WriteLine(a.Character.Name + " name" + a.EquippedItems + " items ");
+            //    foreach(var item in a.EquippedItems)
+            //    {
+            //        Console.WriteLine(item.Name + " " + item.Description + " " + item.InventoryType.Name + " " + item.Quality.Name + item.Media.Key+" " + item.Item.Id + " level " + item.Level.Value );
+            //        avgIlvl += item.Level.Value;
+            //    }
+            //    avgIlvl = avgIlvl - 40;
+            //    Console.WriteLine("Avg ilvl = " + (avgIlvl/13));
+            //}
+            if(media.Success)
             {
-                CharacterProfileSummary profile = result.Value;
-                Console.WriteLine($"Level for {profile.Name}: {profile.Level} : {profile.Equipment}");
-            }
-            double avgIlvl = 0;
-            if(armor.Success)
-            {
-                CharacterEquipmentSummary a = armor.Value;
-                Console.WriteLine(a.Character.Name + " name" + a.EquippedItems + " items ");
-                foreach(var item in a.EquippedItems)
+                ItemMedia media1 = media.Value;
+                Console.WriteLine(media1.Links + "" + media1.Assets);
+                foreach(var d in media1.Assets)
                 {
-                    Console.WriteLine(item.Name + " " + item.Description + " " + item.InventoryType.Name + " " + item.Quality.Name + " " + item.Item.Id + " level " + item.Level.Value );
-                    avgIlvl += item.Level.Value;
+                    Console.WriteLine(d.FileDataId + " "+ d.Key + " " + d.Value.AbsolutePath + " " + d.Value.AbsoluteUri); //absolut uri ger länk till jpg bild
                 }
-                avgIlvl = avgIlvl - 40;
-                Console.WriteLine("Avg ilvl = " + (avgIlvl/13));
+
             }
 
         }
