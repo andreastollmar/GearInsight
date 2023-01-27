@@ -50,7 +50,7 @@ namespace testWoW
                     Console.WriteLine(d.FileDataId + " "+ d.Key + " " + d.Value.AbsolutePath + " " + d.Value.AbsoluteUri); //absolut uri ger länk till jpg bild
                 }
             }
-
+            Console.WriteLine("Hejhejhejehej");
         } 
     }
 }
