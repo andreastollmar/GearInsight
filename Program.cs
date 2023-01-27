@@ -51,6 +51,8 @@ namespace testWoW
                 }
             }
 
+            Console.WriteLine("Testar min nya branch!");
+
         } 
     }
 }
