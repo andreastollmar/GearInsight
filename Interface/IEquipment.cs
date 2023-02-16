@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,38 +7,39 @@ using System.Threading.Tasks;
 
 namespace testWoW.Interface
 {
+    
     public interface IEquipment
     {
         public string Icon { get; set; }
         public int wowheadId { get; set; }
     }
-
+    
     public class Item
     {
-        public static List<IEquipment> CreateItems()
-        {
-            List<IEquipment> equipment = new List<IEquipment>();
-            equipment.Add(new Head());
-            equipment.Add(new Neck());
-            equipment.Add(new Shoulder());
-            equipment.Add(new Chest());
-            equipment.Add(new Waist());
-            equipment.Add(new Legs());
-            equipment.Add(new Feet());
-            equipment.Add(new Wrist());
-            equipment.Add(new Gloves());
-            equipment.Add(new Ring1());
-            equipment.Add(new Ring2());
-            equipment.Add(new Trinket1());
-            equipment.Add(new Trinket2());
-            equipment.Add(new Cloak());
-            equipment.Add(new Mainhand());
-            equipment.Add(new Offhand());
-            equipment.Add(new Tabard());
-            return equipment;
-        }
+        //public static List<IEquipment> CreateItems()
+        //{
+        //    List<IEquipment> equipment = new List<IEquipment>();
+        //    equipment.Add(new Head());
+        //    equipment.Add(new Neck());
+        //    equipment.Add(new Shoulder());
+        //    equipment.Add(new Chest());
+        //    equipment.Add(new Waist());
+        //    equipment.Add(new Legs());
+        //    equipment.Add(new Feet());
+        //    equipment.Add(new Wrist());
+        //    equipment.Add(new Gloves());
+        //    equipment.Add(new Ring1());
+        //    equipment.Add(new Ring2());
+        //    equipment.Add(new Trinket1());
+        //    equipment.Add(new Trinket2());
+        //    equipment.Add(new Cloak());
+        //    equipment.Add(new Mainhand());
+        //    equipment.Add(new Offhand());
+        //    equipment.Add(new Tabard());
+        //    return equipment;
+        //}
     }
-
+    [BsonKnownTypes(typeof(Item), typeof(IEquipment))]
     public class Head : Item, IEquipment
     {
         public string Icon { get; set; }

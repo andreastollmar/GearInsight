@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using ArgentPonyWarcraftClient;
 using testWoW.Interface;
+using testWoW.Database;
 
 namespace testWoW
 {
@@ -16,9 +17,9 @@ namespace testWoW
             string realm = Helpers.GetInputFromUser("Enter Realm: ");
             string character = Helpers.GetInputFromUser("Enter character Name: ");
 
+            Task<Character> character1 = Mongo.CreateCharacter(character, realm);
 
-
-            Task<Character> character1 = Character.FetchCharacterAsync(character, realm);
+            //Task<Character> character1 = Character.FetchCharacterAsync(character, realm);
 
             Console.WriteLine("Name: " + character1.Result.CharacterName + "\nRealm: " + character1.Result.Realm);
             foreach (var d in character1.Result.equipment)
