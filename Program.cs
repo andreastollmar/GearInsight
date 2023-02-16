@@ -22,6 +22,11 @@ namespace testWoW
             string character = Helpers.GetInputFromUser("Enter character Name: ");
 
             RequestResult<CharacterEquipmentSummary> armor = await warcraftClient.GetCharacterEquipmentSummaryAsync(realm, character, "profile-eu");
+            RequestResult<CharacterMediaSummary> charMedia = await warcraftClient.GetCharacterMediaSummaryAsync(realm, character, "profile-eu");
+            if (charMedia.Success)
+            {
+                // charMedia.Value.Character.Key.Href.
+            }
 
             //IEquipment head = new Head();
             //IEquipment neck = new Neck();
@@ -46,7 +51,7 @@ namespace testWoW
             if (armor.Success)
             {
                 c.equipment = new List<IEquipment>();
-                CharacterEquipmentSummary a = armor.Value;
+                CharacterEquipmentSummary a = armor.Value;                
                 for (int i = 0; i < a.EquippedItems.Length; i++)
                 {
                     if (i == 0) //head
