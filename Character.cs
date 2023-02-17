@@ -32,7 +32,8 @@ namespace testWoW
         public Mainhand Mainhand { get; set; } = new Mainhand();
         public Offhand Offhand { get; set; } = new Offhand();
         public Tabard Tabard { get; set; } = new Tabard();
-        public List<IEquipment> equipment { get; set; } = new List<IEquipment>();
+        public Shirt Shirt { get; set; } = new Shirt();
+        // public List<OurItem> equipment { get; set; } = new List<OurItem>();
 
         public Character(string characterName, string realm)
         {
@@ -54,7 +55,7 @@ namespace testWoW
             var warcraftClient = new WarcraftClient(clientId, clientSecret, Region.Europe, Locale.en_GB);
             RequestResult<CharacterEquipmentSummary> armor = await warcraftClient.GetCharacterEquipmentSummaryAsync(realm, character, "profile-eu");
             Character c = new Character(character, realm);
-
+            
             if (armor.Success)
             {
                 //c.equipment = new List<IEquipment>();
@@ -74,7 +75,7 @@ namespace testWoW
 
                             c.Head.Icon = headUri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Head);
+                        // c.equipment.Add(c.Head);
                     }
                     if (i == 1) //neck
                     {
@@ -87,7 +88,7 @@ namespace testWoW
 
                             c.Neck.Icon = neckUri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Neck);
+                        // c.equipment.Add(c.Neck);
                     }
                     if (i == 2) //shoulder
                     {
@@ -100,10 +101,23 @@ namespace testWoW
 
                             c.Shoulder.Icon = shouldersUri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Shoulder);
+                        // c.equipment.Add(c.Shoulder);
                     }
 
-                    if (i == 3) // chest
+                    if (i == 3) // shirt
+                    {
+                        c.Shirt.wowheadId = a.EquippedItems[i].Media.Id;
+
+                        RequestResult<ItemMedia> shirtMedia = await warcraftClient.GetItemMediaAsync(c.Shirt.wowheadId, "static-eu");
+                        ItemMedia shirtIcon = shirtMedia.Value;
+                        foreach (var shirtUri in shirtIcon.Assets)
+                        {
+
+                            c.Shirt.Icon = shirtUri.Value.AbsoluteUri;
+                        }
+                       // c.equipment.Add(c.Shirt);
+                    }
+                    if (i == 4) // chest
                     {
                         c.Chest.wowheadId = a.EquippedItems[i].Media.Id;
 
@@ -114,10 +128,10 @@ namespace testWoW
 
                             c.Chest.Icon = chestUri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Chest);
+                        // c.equipment.Add(c.Chest);
                     }
 
-                    if (i == 4) //waist
+                    if (i == 5) //waist
                     {
                         c.Waist.wowheadId = a.EquippedItems[i].Media.Id;
 
@@ -128,10 +142,10 @@ namespace testWoW
 
                             c.Waist.Icon = waistUri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Waist);
+                        // c.equipment.Add(c.Waist);
                     }
 
-                    if (i == 5) //legs
+                    if (i == 6) //legs
                     {
                         c.Legs.wowheadId = a.EquippedItems[i].Media.Id;
 
@@ -142,10 +156,10 @@ namespace testWoW
 
                             c.Legs.Icon = legsUri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Legs);
+                        // c.equipment.Add(c.Legs);
                     }
 
-                    if (i == 6) //feet
+                    if (i == 7) //feet
                     {
                         c.Feet.wowheadId = a.EquippedItems[i].Media.Id;
 
@@ -156,9 +170,9 @@ namespace testWoW
 
                             c.Feet.Icon = feetUri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Feet);
+                        // c.equipment.Add(c.Feet);
                     }
-                    if (i == 7) //wrist
+                    if (i == 8) //wrist
                     {
                         c.Wrist.wowheadId = a.EquippedItems[i].Media.Id;
 
@@ -169,9 +183,9 @@ namespace testWoW
 
                             c.Wrist.Icon = wristUri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Wrist);
+                        // c.equipment.Add(c.Wrist);
                     }
-                    if (i == 8) //gloves
+                    if (i == 9) //gloves
                     {
                         c.Gloves.wowheadId = a.EquippedItems[i].Media.Id;
 
@@ -182,9 +196,9 @@ namespace testWoW
 
                             c.Gloves.Icon = glovesUri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Gloves);
+                        // c.equipment.Add(c.Gloves);
                     }
-                    if (i == 9) //ring 1
+                    if (i == 10) //ring 1
                     {
                         c.Ring1.wowheadId = a.EquippedItems[i].Media.Id;
 
@@ -195,9 +209,9 @@ namespace testWoW
 
                             c.Ring1.Icon = ring1Uri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Ring1);
+                        // c.equipment.Add(c.Ring1);
                     }
-                    if (i == 10) //ring 2
+                    if (i == 11) //ring 2
                     {
                         c.Ring2.wowheadId = a.EquippedItems[i].Media.Id;
 
@@ -208,9 +222,9 @@ namespace testWoW
 
                             c.Ring2.Icon = ring2Uri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Ring2);
+                        // c.equipment.Add(c.Ring2);
                     }
-                    if (i == 11) //trinket 1
+                    if (i == 12) //trinket 1
                     {
                         c.Trinket1.wowheadId = a.EquippedItems[i].Media.Id;
 
@@ -221,9 +235,9 @@ namespace testWoW
 
                             c.Trinket1.Icon = trinket1Uri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Trinket1);
+                        // c.equipment.Add(c.Trinket1);
                     }
-                    if (i == 12) //trinket 2
+                    if (i == 13) //trinket 2
                     {
                         c.Trinket2.wowheadId = a.EquippedItems[i].Media.Id;
 
@@ -234,9 +248,9 @@ namespace testWoW
 
                             c.Trinket2.Icon = trinket2Uri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Trinket2);
+                        // c.equipment.Add(c.Trinket2);
                     }
-                    if (i == 13) //cloak
+                    if (i == 14) //cloak
                     {
                         c.Cloak.wowheadId = a.EquippedItems[i].Media.Id;
 
@@ -247,9 +261,9 @@ namespace testWoW
 
                             c.Cloak.Icon = cloakUri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Cloak);
+                        // c.equipment.Add(c.Cloak);
                     }
-                    if (i == 14) //2hand or mainhand
+                    if (i == 15) //2hand or mainhand
                     {
                         c.Mainhand.wowheadId = a.EquippedItems[i].Media.Id;
 
@@ -260,9 +274,9 @@ namespace testWoW
 
                             c.Mainhand.Icon = mainhandUri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Mainhand);
+                        // c.equipment.Add(c.Mainhand);
                     }
-                    if (i == 15) //offhand
+                    if (i == 16) //offhand
                     {
                         c.Offhand.wowheadId = a.EquippedItems[i].Media.Id;
 
@@ -273,9 +287,9 @@ namespace testWoW
 
                             c.Offhand.Icon = offhandUri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Offhand);
+                        // c.equipment.Add(c.Offhand);
                     }
-                    if (i == 16) //tabard
+                    if (i == 17) //tabard
                     {
                         c.Tabard.wowheadId = a.EquippedItems[i].Media.Id;
 
@@ -286,7 +300,7 @@ namespace testWoW
 
                             c.Tabard.Icon = tabardUri.Value.AbsoluteUri;
                         }
-                        c.equipment.Add(c.Tabard);
+                        // c.equipment.Add(c.Tabard);
                     }
 
                 }

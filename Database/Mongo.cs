@@ -28,9 +28,11 @@ namespace testWoW.Database
             return myCollection;
         }
 
-        private static async Task<bool> CheckIfCharacterExist(string name, string realm, IMongoCollection<Character> allCharacters)
+        private static async Task<Guid> CheckIfCharacterExist(string name, string realm, IMongoCollection<Character> allCharacters)
         {
             bool characterFound = false;
+            Guid guid = Guid.Empty;
+            string guidToString = "";
                         
             var allCharacters1 = allCharacters.AsQueryable().ToList();  // döpa om saker
 
@@ -38,11 +40,13 @@ namespace testWoW.Database
             {
                 if (c.CharacterName == name.ToLower() && c.Realm == realm.ToLower())
                 {
-                    characterFound = true;
+                    characterFound = true;  
+                    guidToString = c.Id.ToString();
+                    guid = c.Id;
                     break;
                 }
             }
-            return characterFound;
+            return guid;
         }
 
         public static async Task<Character> CreateCharacter(string name, string realm)
@@ -50,17 +54,30 @@ namespace testWoW.Database
             IMongoCollection<Character> fetchCharacterList = await FetchDatabase();
             var checkIfCharacterExist = CheckIfCharacterExist(name, realm, fetchCharacterList);
             Character character = null;
-            if (await checkIfCharacterExist == true)
+            if (await checkIfCharacterExist != Guid.Empty)
             {
-                character = JsonSerializer.Deserialize<Character>(fetchCharacterList.AsQueryable().Where(x => x.CharacterName == name && x.Realm == realm).SingleOrDefault().ToString());
+
+                var filter = Builders<Character>.Filter.Eq(x => x.Id, await CheckIfCharacterExist(name, realm, fetchCharacterList));
+                character = await fetchCharacterList.Find(filter).FirstOrDefaultAsync();
+                Console.WriteLine("Character fetched from database");
             }
             else
             {
-                character = await Character.FetchCharacterAsync(name, realm);
-                //string insertMsg = JsonSerializer.Serialize(character).ToString();                
+                character = await Character.FetchCharacterAsync(name, realm);                                
                 await fetchCharacterList.InsertOneAsync(character);
+                Console.WriteLine("Character fetched and saved");
             }
             return character;
         }
+        //public static async Task<List<OurItem>> PutItemsInList(Character character)
+        //{
+        //    List<OurItem> items = new List<OurItem>();
+
+        //    if (character.Head.Icon == null)
+        //    {
+        //        // Dummy 
+        //    }
+
+        //}
     }
 }

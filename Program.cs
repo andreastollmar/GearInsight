@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using ArgentPonyWarcraftClient;
 using testWoW.Interface;
 using testWoW.Database;
+using System.Text;
 
 namespace testWoW
 {
@@ -20,12 +21,16 @@ namespace testWoW
             Task<Character> character1 = Mongo.CreateCharacter(character, realm);
 
             //Task<Character> character1 = Character.FetchCharacterAsync(character, realm);
-
+            Console.ReadKey();
+            Console.WriteLine(await character1);
             Console.WriteLine("Name: " + character1.Result.CharacterName + "\nRealm: " + character1.Result.Realm);
-            foreach (var d in character1.Result.equipment)
-            {
-                Console.WriteLine($"{d.wowheadId}\n\n{d.Icon}");
-            }
+            Console.WriteLine(character1.Result.Head.wowheadId + " " + character1.Result.Head.Icon);
+
+
+            //foreach (OurItem d in character1.Result)
+            //{
+            //    Console.WriteLine($"{d.wowheadId}\n\n{d.Icon}");
+            //}
 
 
             //var warcraftClient = new WarcraftClient(clientId, clientSecret, Region.Europe, Locale.en_GB);
