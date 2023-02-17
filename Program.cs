@@ -22,6 +22,7 @@ namespace testWoW
 
             var characterName = await character1;
             Console.WriteLine("\nName: " + character1.Result.CharacterName + "\nRealm: " + character1.Result.Realm);
+            Console.WriteLine("Spec: " + character1.Result.ActiveSpec + " Class: " + character1.Result.PlayedClass + " Haste: " + character1.Result.Stats.SpellHaste + " Crit:" + character1.Result.Stats.SpellCrit);
             //Console.WriteLine(character1.Result.Head.wowheadId + " " + character1.Result.Head.Icon);
             Task<List<OurItem>> list = Mongo.ItemList(await character1);
             foreach (OurItem item in await list)

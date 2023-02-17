@@ -13,6 +13,8 @@ namespace testWoW
         public string CharacterName { get; set; }
         public string Realm { get; set; }
         public Guid Id { get; set; }
+        public string PlayedClass { get; set; }
+        public string ActiveSpec { get; set; }
 
 
         public Head Head { get; set; } = new Head();
@@ -33,6 +35,7 @@ namespace testWoW
         public Offhand Offhand { get; set; } = new Offhand();
         public Tabard Tabard { get; set; } = new Tabard();
         public Shirt Shirt { get; set; } = new Shirt();
+        public Stats Stats { get; set; } = new Stats();
 
 
         public Character(string characterName, string realm)
@@ -55,6 +58,48 @@ namespace testWoW
             var warcraftClient = new WarcraftClient(clientId, clientSecret, Region.Europe, Locale.en_GB);
             RequestResult<CharacterEquipmentSummary> armor = await warcraftClient.GetCharacterEquipmentSummaryAsync(realm, character, "profile-eu");
             Character c = new Character(character, realm);
+            RequestResult<CharacterStatisticsSummary> stats = await warcraftClient.GetCharacterStatisticsSummaryAsync(realm, character, "profile-eu");
+            RequestResult<CharacterProfileSummary> profile = await warcraftClient.GetCharacterProfileSummaryAsync(realm, character, "profile-eu");
+
+            
+            c.ActiveSpec = profile.Value.ActiveSpec.Name;
+            c.PlayedClass = profile.Value.CharacterClass.Name;
+            Console.WriteLine(c.PlayedClass + " " + c.ActiveSpec);
+            if (c.PlayedClass == "Warrior" || c.PlayedClass == "Death Knight" || c.ActiveSpec == "Retribution" || c.ActiveSpec == "Protection")
+            {
+                c.Stats.Strength = stats.Value.Strength.ToString();
+                c.Stats.MeleeHaste = stats.Value.MeleeHaste.ToString();
+                c.Stats.MeleeCrit = stats.Value.MeleeCrit.ToString();
+
+            }
+            else if (c.PlayedClass == "Rogue" || c.PlayedClass == "Demon Hunter" || (c.PlayedClass == "Hunter" && c.ActiveSpec == "Survival") || c.ActiveSpec == "Windwalker" || c.ActiveSpec == "Brewmaster" || c.ActiveSpec == "Enhancement" || c.ActiveSpec == "Feral" || c.ActiveSpec == "Guardian")
+            {
+                c.Stats.Agility = stats.Value.Agility.ToString();
+                c.Stats.MeleeHaste = stats.Value.MeleeHaste.ToString();
+                c.Stats.MeleeCrit = stats.Value.MeleeCrit.ToString();
+            }
+            else if (c.PlayedClass == "Hunter")
+            {
+                c.Stats.Agility = stats.Value.Agility.ToString();
+                c.Stats.RangeHaste = stats.Value.RangedHaste.ToString();
+                c.Stats.RangeCrit = stats.Value.RangedCrit.ToString();
+            }
+            else if (c.PlayedClass == "Mage" || c.PlayedClass == "Warlock" || c.PlayedClass == "Priest" || c.PlayedClass == "Evoker" || c.ActiveSpec == "Mistweaver" || c.PlayedClass == "Shaman" || c.ActiveSpec == "Balance" || c.ActiveSpec == "Restoration" || c.ActiveSpec == "Holy")
+            {
+
+                c.Stats.Intellect = stats.Value.Intellect.ToString();
+                c.Stats.SpellHaste = stats.Value.SpellHaste.ToString();
+                c.Stats.SpellCrit = stats.Value.SpellCrit.ToString();
+            }
+                 
+            c.Stats.Mastery = stats.Value.Mastery.ToString();
+            c.Stats.Versatility = stats.Value.Versatility.ToString();
+            c.Stats.Leech = stats.Value.Lifesteal.ToString();    
+            c.Stats.Speed = stats.Value.Speed.ToString();
+            c.Stats.Avoidance = stats.Value.Avoidance.ToString();
+            c.Stats.Health = stats.Value.Health.ToString();
+            
+
 
             if (armor.Success)
             {
@@ -66,6 +111,7 @@ namespace testWoW
                     if (a.EquippedItems[i].Slot.Name == "Head")
                     {
                         c.Head.wowheadId = a.EquippedItems[i].Media.Id;
+                        
 
                         RequestResult<ItemMedia> headMedia = await warcraftClient.GetItemMediaAsync(c.Head.wowheadId, "static-eu");
                         ItemMedia headIcon = headMedia.Value;
