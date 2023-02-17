@@ -69,15 +69,12 @@ namespace testWoW.Database
             }
             return character;
         }
-        //public static async Task<List<OurItem>> PutItemsInList(Character character)
-        //{
-        //    List<OurItem> items = new List<OurItem>();
+        public static async Task<List<OurItem>> PutItemsInList(Character character)
+        {
+            List<OurItem> items = new List<OurItem>();
 
-        //    if (character.Head.Icon == null)
-        //    {
-        //        // Dummy 
-        //    }
+            items.AddRange(character))
 
-        //}
+        }
     }
 }

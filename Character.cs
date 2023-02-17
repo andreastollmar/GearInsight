@@ -33,6 +33,8 @@ namespace testWoW
         public Offhand Offhand { get; set; } = new Offhand();
         public Tabard Tabard { get; set; } = new Tabard();
         public Shirt Shirt { get; set; } = new Shirt();
+        public Dummy Dummy { get; set; } = new Dummy();
+
         // public List<OurItem> equipment { get; set; } = new List<OurItem>();
 
         public Character(string characterName, string realm)
@@ -67,6 +69,7 @@ namespace testWoW
                     if (i == 0) //head
                     {
                         c.Head.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> headMedia = await warcraftClient.GetItemMediaAsync(c.Head.wowheadId, "static-eu");
                         ItemMedia headIcon = headMedia.Value;
@@ -80,6 +83,7 @@ namespace testWoW
                     if (i == 1) //neck
                     {
                         c.Neck.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> neckMedia = await warcraftClient.GetItemMediaAsync(c.Neck.wowheadId, "static-eu");
                         ItemMedia neckIcon = neckMedia.Value;
@@ -93,6 +97,7 @@ namespace testWoW
                     if (i == 2) //shoulder
                     {
                         c.Shoulder.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> shouldersMedia = await warcraftClient.GetItemMediaAsync(c.Shoulder.wowheadId, "static-eu");
                         ItemMedia shouldersIcon = shouldersMedia.Value;
@@ -107,6 +112,7 @@ namespace testWoW
                     if (i == 3) // shirt
                     {
                         c.Shirt.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> shirtMedia = await warcraftClient.GetItemMediaAsync(c.Shirt.wowheadId, "static-eu");
                         ItemMedia shirtIcon = shirtMedia.Value;
@@ -120,6 +126,7 @@ namespace testWoW
                     if (i == 4) // chest
                     {
                         c.Chest.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> chestMedia = await warcraftClient.GetItemMediaAsync(c.Chest.wowheadId, "static-eu");
                         ItemMedia chestIcon = chestMedia.Value;
@@ -134,6 +141,7 @@ namespace testWoW
                     if (i == 5) //waist
                     {
                         c.Waist.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> waistMedia = await warcraftClient.GetItemMediaAsync(c.Waist.wowheadId, "static-eu");
                         ItemMedia waistIcon = waistMedia.Value;
@@ -148,6 +156,7 @@ namespace testWoW
                     if (i == 6) //legs
                     {
                         c.Legs.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> legsMedia = await warcraftClient.GetItemMediaAsync(c.Legs.wowheadId, "static-eu");
                         ItemMedia legsIcon = legsMedia.Value;
@@ -162,6 +171,7 @@ namespace testWoW
                     if (i == 7) //feet
                     {
                         c.Feet.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> feetMedia = await warcraftClient.GetItemMediaAsync(c.Feet.wowheadId, "static-eu");
                         ItemMedia feetIcon = feetMedia.Value;
@@ -175,6 +185,7 @@ namespace testWoW
                     if (i == 8) //wrist
                     {
                         c.Wrist.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> wristMedia = await warcraftClient.GetItemMediaAsync(c.Wrist.wowheadId, "static-eu");
                         ItemMedia wristIcon = wristMedia.Value;
@@ -188,6 +199,7 @@ namespace testWoW
                     if (i == 9) //gloves
                     {
                         c.Gloves.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> glovesMedia = await warcraftClient.GetItemMediaAsync(c.Gloves.wowheadId, "static-eu");
                         ItemMedia glovesIcon = glovesMedia.Value;
@@ -201,6 +213,7 @@ namespace testWoW
                     if (i == 10) //ring 1
                     {
                         c.Ring1.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> ring1Media = await warcraftClient.GetItemMediaAsync(c.Ring1.wowheadId, "static-eu");
                         ItemMedia ring1Icon = ring1Media.Value;
@@ -214,6 +227,7 @@ namespace testWoW
                     if (i == 11) //ring 2
                     {
                         c.Ring2.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> ring2Media = await warcraftClient.GetItemMediaAsync(c.Ring2.wowheadId, "static-eu");
                         ItemMedia ring2Icon = ring2Media.Value;
@@ -227,6 +241,7 @@ namespace testWoW
                     if (i == 12) //trinket 1
                     {
                         c.Trinket1.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> trinket1Media = await warcraftClient.GetItemMediaAsync(c.Trinket1.wowheadId, "static-eu");
                         ItemMedia trinket1Icon = trinket1Media.Value;
@@ -240,6 +255,7 @@ namespace testWoW
                     if (i == 13) //trinket 2
                     {
                         c.Trinket2.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> trinket2Media = await warcraftClient.GetItemMediaAsync(c.Trinket2.wowheadId, "static-eu");
                         ItemMedia trinket2Icon = trinket2Media.Value;
@@ -253,6 +269,7 @@ namespace testWoW
                     if (i == 14) //cloak
                     {
                         c.Cloak.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> cloakMedia = await warcraftClient.GetItemMediaAsync(c.Cloak.wowheadId, "static-eu");
                         ItemMedia cloakIcon = cloakMedia.Value;
@@ -263,9 +280,11 @@ namespace testWoW
                         }
                         // c.equipment.Add(c.Cloak);
                     }
-                    if (i == 15) //2hand or mainhand
+                    if (a.EquippedItems[i].Slot.Name == "Main Hand") //2hand or mainhand
                     {
                         c.Mainhand.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Weapon);
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> mainhandMedia = await warcraftClient.GetItemMediaAsync(c.Mainhand.wowheadId, "static-eu");
                         ItemMedia mainhandIcon = mainhandMedia.Value;
@@ -279,6 +298,7 @@ namespace testWoW
                     if (i == 16) //offhand
                     {
                         c.Offhand.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> offhandMedia = await warcraftClient.GetItemMediaAsync(c.Offhand.wowheadId, "static-eu");
                         ItemMedia offhandIcon = offhandMedia.Value;
@@ -292,6 +312,7 @@ namespace testWoW
                     if (i == 17) //tabard
                     {
                         c.Tabard.wowheadId = a.EquippedItems[i].Media.Id;
+                        Console.WriteLine(a.EquippedItems[i].Slot);
 
                         RequestResult<ItemMedia> tabardMedia = await warcraftClient.GetItemMediaAsync(c.Tabard.wowheadId, "static-eu");
                         ItemMedia tabardIcon = tabardMedia.Value;

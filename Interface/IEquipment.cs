@@ -85,4 +85,8 @@ namespace testWoW.Interface
     {
 
     }
+    public class Dummy : OurItem
+    {
+
+    }
 }
