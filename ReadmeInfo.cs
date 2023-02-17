@@ -19,5 +19,11 @@ namespace testWoW
         // 2handed eller mainhand = indexeringen i listan är 14
         // offhand = index 15
         // tabard = index 16
+
+
+
+        // Refresh "knapp"
+        // Task<Character> refresh = Mongo.RefreshData(character, realm);
+        // await refresh;
     }
 }

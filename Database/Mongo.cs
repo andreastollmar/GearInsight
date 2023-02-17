@@ -11,6 +11,7 @@ using SharpCompress.Readers;
 using ArgentPonyWarcraftClient;
 using testWoW.Interface;
 using SharpCompress.Writers;
+using System.Xml.Linq;
 
 namespace testWoW.Database
 {
@@ -33,14 +34,14 @@ namespace testWoW.Database
             bool characterFound = false;
             Guid guid = Guid.Empty;
             string guidToString = "";
-                        
+
             var allCharacters1 = allCharacters.AsQueryable().ToList();  // döpa om saker
 
             foreach (Character c in allCharacters1)
             {
                 if (c.CharacterName == name.ToLower() && c.Realm == realm.ToLower())
                 {
-                    characterFound = true;  
+                    characterFound = true;
                     guidToString = c.Id.ToString();
                     guid = c.Id;
                     break;
@@ -63,18 +64,64 @@ namespace testWoW.Database
             }
             else
             {
-                character = await Character.FetchCharacterAsync(name, realm);                                
+                character = await Character.FetchCharacterAsync(name, realm);
                 await fetchCharacterList.InsertOneAsync(character);
-                Console.WriteLine("Character fetched and saved");
+                Console.WriteLine("Character created, saved and fetched");
             }
             return character;
         }
-        public static async Task<List<OurItem>> PutItemsInList(Character character)
+        public static async Task<List<OurItem>> ItemList(Character character)
         {
             List<OurItem> items = new List<OurItem>();
 
-            items.AddRange(character))
+            items.Add(character.Head);
+            items.Add(character.Neck);
+            items.Add(character.Shoulder);
+            items.Add(character.Shirt);
+            items.Add(character.Chest);
+            items.Add(character.Waist);
+            items.Add(character.Legs);
+            items.Add(character.Feet);
+            items.Add(character.Wrist);
+            items.Add(character.Hands);
+            items.Add(character.Ring1);
+            items.Add(character.Ring2);
+            items.Add(character.Trinket1);
+            items.Add(character.Trinket2);
+            items.Add(character.Back);
+            items.Add(character.Mainhand);
+            items.Add(character.Offhand);
+            items.Add(character.Tabard);
 
+            Console.WriteLine("Items added to list");
+
+            return items;
+        }
+
+        public static async Task<Character> RefreshData(string name, string realm)
+        {
+            var allCharacters = FetchDatabase();
+            var id = CheckIfCharacterExist(name, realm, await allCharacters);
+
+            Task deleteCharacter = DeleteOneCharacter(await allCharacters, await id);
+
+            Task<Character> createdCharacter = CreateAfterDelete(name, realm, await allCharacters);
+
+            return await createdCharacter;
+        }
+
+        public static async Task DeleteOneCharacter(IMongoCollection<Character> myCollection, Guid id)
+        {
+            var character = await myCollection.DeleteOneAsync(x => x.Id == id);
+            Console.WriteLine("Character deleted!"); // ta bort sen
+        }
+
+        public static async Task<Character> CreateAfterDelete(string name, string realm, IMongoCollection<Character> allCharacters)
+        {
+            Character character = await Character.FetchCharacterAsync(name, realm);
+            await allCharacters.InsertOneAsync(character);
+            Console.WriteLine("Character created, saved and fetched AFTRER delete"); // ta bort sen
+            return character;
         }
     }
 }

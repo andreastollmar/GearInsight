@@ -45,7 +45,7 @@ namespace testWoW.Interface
     {
         
     }
-    public class Gloves : OurItem
+    public class Hands : OurItem
     {
         
     }
@@ -65,7 +65,7 @@ namespace testWoW.Interface
     {
         
     }
-    public class Cloak : OurItem
+    public class Back : OurItem
     {
         
     }
@@ -82,10 +82,6 @@ namespace testWoW.Interface
         
     }
     public class Shirt : OurItem
-    {
-
-    }
-    public class Dummy : OurItem
     {
 
     }
